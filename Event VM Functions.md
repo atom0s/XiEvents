@@ -369,7 +369,7 @@ _This is seen being used to rename an entity during an event._
 Writes a value to one of the various buffers available to events. This function first reads a value (via `XiEvent::eventgetcode`) from the `EventData` then uses that value to handle another lookup. This can be used to do a number of various data write requests. When the function is called, it is passed the `XiEvent` object, and three additional params, first is an index, second is an index adjustment, and the third is the value to write. Since the values are designed and read/written using 2 byte values with `XiEvent::eventgetcode`, the 3rd parameter can be used to shift and extend the result of the initial lookup index. This looks like:
 
 ```cpp
-void __thiscall FUNC_XiEvent_setworkofs(xievent_t *this, int index, int indexShift, int value)
+void __thiscall FUNC_XiEvent_setworkofs(xievent_t *this, int index, int value, int indexShift)
 {
   const auto val = indexShift + FUNC_XiEvent_eventgetcode(this, index);
 
