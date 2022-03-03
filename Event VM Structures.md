@@ -84,9 +84,8 @@ struct xievent_t
     uint16_t        RunPos;                 // [RunPos]
     uint8_t         RetFlag;                // [RetFlag]
     uint8_t         InitFlag;               // [InitFlag]
-    uintptr_t       Unknown0008;            // [???]
-    uintptr_t       Unknown0009;            // [???]
-    uint32_t        Unknown0010;            // [???]
+    xieventex_t*    ExtData[2];             // [N/A]
+    uint32_t        Unknown0009;            // [???]
 };
 
 xievent_t event;
@@ -390,15 +389,19 @@ When the next tick starts and `XiEvent::EventIdle` is called for the entity agai
 
 Flag that is set when `XiEvent::EventInit` has completed preparing the event information.
 
-## `Unknown0008`, `Unknown0009`, `Unknown0010`
+## `ExtData`
 
-These three unknowns are blocked together because they are used together.
+Pointers to the entities extended data structure (`xieventex_t`).
 
-`Unknown0008` and `Unknown0009` are pointers to `xieventex_t` instances. `Unknown0008` is used as a hard-copy instance of the pointer, while `Unknown0009` is used as a mutable instance that can be changed to another `xieventex_t` instance. 
+There are two copies of the same pointer here as the client makes use of index 0 for a hard-copy that is never changed, while index 1 holds a mutable copy that can be changed. 
 
-During opcode `0x007A`, there are multiple cases where these values are made use of, as well as `Unknown0010`. `Unknown0010` is a counter/flag used to tell when `Unknown0009` has been modified. When this happens, the client also makes use of `EntityTargetIndex` and `EntityServerId`. These are used in a similar fashion where index 0 of both of these are hard-copies, and index 1 is mutable. 
+During opcode `0x007A`, there are multiple cases where these values are made use of, as well as `Unknown0009`.
 
 This appears to be used to allow entities to share their extended event information.
+
+## `Unknown0009`
+
+`Unknown0009` is a counter/flag used to tell when `ExtData[1]` has been modified. When this happens, the client also makes use of `EntityTargetIndex` and `EntityServerId`. These are used in a similar fashion where index 0 of both of these are hard-copies, and index 1 is mutable.
 
 ---
 
