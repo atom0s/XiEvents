@@ -85,7 +85,7 @@ struct xievent_t
     uint8_t         RetFlag;                // [RetFlag]
     uint8_t         InitFlag;               // [InitFlag]
     xieventex_t*    ExtData[2];             // [N/A]
-    uint32_t        Unknown0009;            // [???]
+    uint32_t        ExtDataModifiedCounter; // [N/A]
 };
 
 xievent_t event;
@@ -395,13 +395,13 @@ Pointers to the entities extended data structure (`xieventex_t`).
 
 There are two copies of the same pointer here as the client makes use of index 0 for a hard-copy that is never changed, while index 1 holds a mutable copy that can be changed. 
 
-During opcode `0x007A`, there are multiple cases where these values are made use of, as well as `Unknown0009`.
+During opcode `0x007A`, there are multiple cases where these values are made use of, as well as `ExtDataModifiedCounter`.
 
 This appears to be used to allow entities to share their extended event information.
 
-## `Unknown0009`
+## `ExtDataModifiedCounter`
 
-`Unknown0009` is a counter/flag used to tell when `ExtData[1]` has been modified. When this happens, the client also makes use of `EntityTargetIndex` and `EntityServerId`. These are used in a similar fashion where index 0 of both of these are hard-copies, and index 1 is mutable.
+Counter/flag used to tell when `ExtData[1]` has been modified. When this happens, the client also makes use of `EntityTargetIndex` and `EntityServerId`. These are used in a similar fashion where index 0 of both of these are hard-copies, and index 1 is mutable.
 
 ---
 
