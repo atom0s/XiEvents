@@ -82,7 +82,7 @@ The XiEvent object constructor. This initializes the various inner variables of 
 
 This function is just a basic constructor, but here's a quick rundown of what happens:
 
-  * An instance of `xieventex_t` is allocated and stored into `xievent_t::Unknown0008` and `xievent_t::Unknown0009`.
+  * An instance of `xieventex_t` is allocated and stored into `xievent_t::ExtData[0]` and `xievent_t::ExtData[1]`.
   * The various properties of `xievent_t` are initialized to their various defaults.
   * Some of the loaded event DAT information for the event block executing is copied and stored into the members.
   * The parent entity is obtained and some adjustments are made to `Render.Flags0` and `Render.Flags3`, preparing the entity to be in a valid event state.
@@ -263,7 +263,7 @@ After this happens, then `val` is used to determine what to look up based on it'
     * `if (val >= 80)`
       * `val` is considered invalid, 0 is returned.
     * `else`
-      * `val` is considered a `WorkLocal` index and returns: `this->Unknown0009->WorkLocal[val]`
+      * `val` is considered a `WorkLocal` index and returns: `this->ExtData[1]->WorkLocal[val]`
   * `else if (val < 4352)`
     * `if ((val - 4096) < 96 && (val - 4096) >= 0)`
       * `val` is considered a `Work_Zone` index and returns: `Work_Zone[val - 4096]` (`Work_Zone` is a shared global array in `FFXiMain.dll` for the zone to use for all events.)
@@ -281,10 +281,10 @@ After this happens, then `val` is used to determine what to look up based on it'
       * `val` is considered invalid, 0 is returned.
   * `else if (val < 32640)` _(Handled as a switch case of `val` if this if is true.)_
     * The `EntityTargetIndex[1]` is used to obtain the entity at that given index, if invalid, the return is 0. If valid, then:
-      * `val == 0x7F00` - Returns: `this->Unknown0009->EventPos[0] * 1000.0`
-      * `val == 0x7F01` - Returns: `this->Unknown0009->EventPos[1] * 1000.0`
-      * `val == 0x7F02` - Returns: `this->Unknown0009->EventPos[2] * 1000.0`
-      * `val == 0x7F03` - Returns: `enDirCli(this->Unknown0009->EventDir[1]) * 4096.0 * 0.15915963` _(enDirCli is used to convert a radian to a single byte value.)_
+      * `val == 0x7F00` - Returns: `this->ExtData[1]->EventPos[0] * 1000.0`
+      * `val == 0x7F01` - Returns: `this->ExtData[1]->EventPos[1] * 1000.0`
+      * `val == 0x7F02` - Returns: `this->ExtData[1]->EventPos[2] * 1000.0`
+      * `val == 0x7F03` - Returns: `enDirCli(this->ExtData[1]->EventDir[1]) * 4096.0 * 0.15915963` _(enDirCli is used to convert a radian to a single byte value.)_
       * `val == 0x7F06` - Returns the players current job id if the event entity (`EntityTargetIndex[1]`) is the player, 0 otherwise.
       * `val == 0x7F07` - Returns the entities race.
       * `val == 0x7F08` - Returns the players current job level if the event entity (`EntityTargetIndex[1]`) is the player, 1 otherwise.
@@ -320,7 +320,7 @@ The returned values from this function are multiple and stored into a global arr
     * `if (val >= 80)`
       * `val` is considered invalid, 0 is returned.
     * `else`
-      * `val` is considered a `WorkLocal` index and returns: `&this->Unknown0009->WorkLocal[val]`
+      * `val` is considered a `WorkLocal` index and returns: `&this->ExtData[1]->WorkLocal[val]`
   * `else if (val < 4352)`
     * `if ((val - 4096) >= 96 || (val - 4096) < 0)`
       * `val` is considered invalid, 0 is returned.
@@ -384,7 +384,7 @@ After this happens, then `val` is used to determine what to write the value to b
     * `if (val >= 80)`
       * `val` is considered invalid, function returns.
     * `else`
-      * `val` is considered a `WorkLocal` index and writes: `this->Unknown0009->WorkLocal[val] = value`
+      * `val` is considered a `WorkLocal` index and writes: `this->ExtData[1]->WorkLocal[val] = value`
   * `else if (val < 4352)`
     * `if ((val - 4096) >= 96 || (val - 4096) < 0)`
       * `val` is considered invalid, function returns.
@@ -404,10 +404,10 @@ After this happens, then `val` is used to determine what to write the value to b
     * `val` is invalid, function returns.
   * `else`
     * `val` is then changed to: `val -= 32512` and handled as a switch case:
-      * `val == 0` - Writes: `this->Unknown0009->EventPos[0] = value * 0.001`
-      * `val == 1` - Writes: `this->Unknown0009->EventPos[1] = value * 0.001`
-      * `val == 2` - Writes: `this->Unknown0009->EventPos[2] = value * 0.001`
-      * `val == 3` - Writes: `this->Unknown0009->EventDir[1] = value * 6.283 * 0.00024414062`
+      * `val == 0` - Writes: `this->ExtData[1]->EventPos[0] = value * 0.001`
+      * `val == 1` - Writes: `this->ExtData[1]->EventPos[1] = value * 0.001`
+      * `val == 2` - Writes: `this->ExtData[1]->EventPos[2] = value * 0.001`
+      * `val == 3` - Writes: `this->ExtData[1]->EventDir[1] = value * 6.283 * 0.00024414062`
       * `default`
         * `val` is invalid, function returns.
 
@@ -433,7 +433,7 @@ After this happens, then `val` is used to determine what to write the value to b
     * `if (val >= 64)`
       * `val` is considered invalid, function returns.
     * `else`
-      * `val` is considered a `WorkLocal` index and writes: `std::memcpy(&this->Unknown0009->WorkLocal[val], buffer, 16);`
+      * `val` is considered a `WorkLocal` index and writes: `std::memcpy(&this->ExtData[1]->WorkLocal[val], buffer, 16);`
   * `else if (val < 4352)`
     * `if ((val - 4096) >= 80 || (val - 4096) < 0)`
       * `val` is considered invalid, function returns.
