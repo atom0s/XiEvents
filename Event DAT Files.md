@@ -302,3 +302,7 @@ Below is a list of all the zones and their related DAT files for their entity li
 | 295       | Dynamis - Bastok [D]          | ROM/355/5.DAT     | ROM/355/6.DAT     |
 | 296       | Dynamis - Windurst [D]        | ROM/355/39.DAT    | ROM/355/34.DAT    |
 | 297       | Dynamis - Jeuno [D]           | ROM/355/54.DAT    | ROM/355/49.DAT    |
+
+---
+
+_This data is current as of Feb. 28, 2022 retail client._
