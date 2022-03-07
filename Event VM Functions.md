@@ -212,9 +212,9 @@ This function looks like this:
 ```cpp
 int __thiscall FUNC_XiEvent_eventgetcode(xievent_t *this, int index)
 {
-  const auto data = &this->EventData[this->ExecPointer];
+    const auto data = &this->EventData[this->ExecPointer];
 
-  return data[index] + (data[index + 1] << 8);
+    return data[index] + (data[index + 1] << 8);
 }
 ```
 
@@ -229,9 +229,9 @@ This function looks like this:
 ```cpp
 int __thiscall FUNC_XiEvent_eventgetcode2(xievent_t *this, int index)
 {
-  const auto data = &this->EventData[this->ExecPointer + index];
+    const auto data = &this->EventData[this->ExecPointer + index];
 
-  return data[0] + ((data[1] + ((data[2] + (data[3] << 8)) << 8)) << 8);
+    return data[0] + ((data[1] + ((data[2] + (data[3] << 8)) << 8)) << 8);
 }
 ```
 
@@ -246,9 +246,9 @@ Reads a value (via `XiEvent::eventgetcode`) from the `EventData` then uses that 
 ```cpp
 int __thiscall FUNC_XiEvent_getworkofs(xievent_t *this, int index, int indexShift)
 {
-  const auto val = indexShift + FUNC_XiEvent_eventgetcode(this, index);
+    const auto val = indexShift + FUNC_XiEvent_eventgetcode(this, index);
 
-  // ...
+    // ...
 ```
 
 After this happens, then `val` is used to determine what to look up based on it's value.
@@ -367,9 +367,9 @@ Writes a value to one of the various buffers available to events. This function 
 ```cpp
 void __thiscall FUNC_XiEvent_setworkofs(xievent_t *this, int index, int value, int indexShift)
 {
-  const auto val = indexShift + FUNC_XiEvent_eventgetcode(this, index);
+    const auto val = indexShift + FUNC_XiEvent_eventgetcode(this, index);
 
-  // ...
+    // ...
 ```
 
 After this happens, then `val` is used to determine what to write the value to based on its value.
@@ -416,9 +416,9 @@ Writes a string value to one of the various buffers available to events. This fu
 ```cpp
 void __thiscall FUNC_XiEvent_setworkstrofs(xievent_t *this, int index, void* buffer, int indexShift)
 {
-  const auto val = indexShift + FUNC_XiEvent_eventgetcode(this, index);
+    const auto val = indexShift + FUNC_XiEvent_eventgetcode(this, index);
 
-  // ...
+    // ...
 ```
 
 After this happens, then `val` is used to determine what to write the value to based on its value.
