@@ -188,18 +188,14 @@ This function is a giant switch case that handles the various opcodes. The defau
 The opcode `0x0000` handler looks like this:
 
 ```cpp
-int __thiscall FUNC_XiEvent_OpCode_0x0000(xievent_t *this)
+void __thiscall FUNC_XiEvent_OpCode_0x0000(xievent_t *this)
 {
-  auto result = 0;
-
-  this->ReqStack[this->RunPos].StackExecPointer = 0;
-  this->ReqStack[this->RunPos].Priority = 255;
-  this->ReqStack[this->RunPos].WaitTime = -1.0;
-  this->ReqStack[this->RunPos].WhoServerId = 0;
-  this->ReqStack[this->RunPos].TagNum = 0;
-  this->RetFlag = 1;
-
-  return result;
+    this->ReqStack[this->RunPos].StackExecPointer = 0;
+    this->ReqStack[this->RunPos].Priority = 255;
+    this->ReqStack[this->RunPos].WaitTime = -1.0;
+    this->ReqStack[this->RunPos].WhoServerId = 0;
+    this->ReqStack[this->RunPos].TagNum = 0;
+    this->RetFlag = 1;
 }
 ```
 
