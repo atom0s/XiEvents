@@ -188,7 +188,7 @@ This function is a giant switch case that handles the various opcodes. The defau
 The opcode `0x0000` handler looks like this:
 
 ```cpp
-void __thiscall FUNC_XiEvent_OpCode_0x0000(xievent_t *this)
+void __thiscall FUNC_XiEvent_OpCode_0x0000(xievent_t* this)
 {
     this->ReqStack[this->RunPos].StackExecPointer = 0;
     this->ReqStack[this->RunPos].Priority = 255;
@@ -210,7 +210,7 @@ Reads a two-byte value from the current `EventData`, starting index is based on 
 This function looks like this:
 
 ```cpp
-int __thiscall FUNC_XiEvent_eventgetcode(xievent_t *this, int index)
+int __thiscall FUNC_XiEvent_eventgetcode(xievent_t* this, int index)
 {
     const auto data = &this->EventData[this->ExecPointer];
 
@@ -227,7 +227,7 @@ Reads a four-byte value from the current `EventData`, starting index is based on
 This function looks like this:
 
 ```cpp
-int __thiscall FUNC_XiEvent_eventgetcode2(xievent_t *this, int index)
+int __thiscall FUNC_XiEvent_eventgetcode2(xievent_t* this, int index)
 {
     const auto data = &this->EventData[this->ExecPointer + index];
 
@@ -244,7 +244,7 @@ int __thiscall FUNC_XiEvent_eventgetcode2(xievent_t *this, int index)
 Reads a value (via `XiEvent::eventgetcode`) from the `EventData` then uses that value to handle another lookup. This can be used to do a number of various data read requests. When the function is called, it is passed the `XiEvent` object, and two additional params, one is an index, the other is an index adjustment. Since the values are designed and read using 2 byte values with `XiEvent::eventgetcode`, the 3rd parameter can be used to shift and extend the result of the initial lookup index. This looks like:
 
 ```cpp
-int __thiscall FUNC_XiEvent_getworkofs(xievent_t *this, int index, int indexShift)
+int __thiscall FUNC_XiEvent_getworkofs(xievent_t* this, int index, int indexShift)
 {
     const auto val = indexShift + FUNC_XiEvent_eventgetcode(this, index);
 
@@ -365,7 +365,7 @@ _This is seen being used to rename an entity during an event._
 Writes a value to one of the various buffers available to events. This function first reads a value (via `XiEvent::eventgetcode`) from the `EventData` then uses that value to handle another lookup. This can be used to do a number of various data write requests. When the function is called, it is passed the `XiEvent` object, and three additional params, first is an index, second is an index adjustment, and the third is the value to write. Since the values are designed and read/written using 2 byte values with `XiEvent::eventgetcode`, the 3rd parameter can be used to shift and extend the result of the initial lookup index. This looks like:
 
 ```cpp
-void __thiscall FUNC_XiEvent_setworkofs(xievent_t *this, int index, int value, int indexShift)
+void __thiscall FUNC_XiEvent_setworkofs(xievent_t* this, int index, int value, int indexShift)
 {
     const auto val = indexShift + FUNC_XiEvent_eventgetcode(this, index);
 
@@ -414,7 +414,7 @@ After this happens, then `val` is used to determine what to write the value to b
 Writes a string value to one of the various buffers available to events. This function first reads a value (via `XiEvent::eventgetcode`) from the `EventData` then uses that value to handle another lookup. This can be used to do a number of various data write requests. When the function is called, it is passed the `XiEvent` object, and three additional params, first is an index, second is a pointer to the string data, and the third is the index adjustment. Since the value returned from `XiEvent::eventgetcode` is an index and limited to 2 bytes, the last parameter is used as an index shifter to extend the value beyond the uint16_t limit. This looks like:
 
 ```cpp
-void __thiscall FUNC_XiEvent_setworkstrofs(xievent_t *this, int index, void* buffer, int indexShift)
+void __thiscall FUNC_XiEvent_setworkstrofs(xievent_t* this, int index, void* buffer, int indexShift)
 {
     const auto val = indexShift + FUNC_XiEvent_eventgetcode(this, index);
 
@@ -459,7 +459,7 @@ Returns an entities target index and server id based on a hard-coded lookup valu
 This function prototype looks like this:
 
 ```cpp
-bool __thiscall FUNC_XiEvent_GetActorIndex(xievent_t *this, int32_t lookupValue, uint32_t *serverId, uint16_t *targetIndex);
+bool __thiscall FUNC_XiEvent_GetActorIndex(xievent_t* this, int32_t lookupValue, uint32_t *serverId, uint16_t *targetIndex);
 ```
 
   * `0x7FFFFFC0`, `0x7FFFFFF0`, `0x7FFFFFF9`
@@ -495,7 +495,7 @@ This function seems to only be used with opcode: `0x002A` The priority passed to
 This function looks like this:
 
 ```cpp
-int __thiscall FUNC_XiEvent_GetReqLevel(xievent_t *this, int priority)
+int __thiscall FUNC_XiEvent_GetReqLevel(xievent_t* this, int priority)
 {
     if (this->ReqStack[this->RunPos].Priority > priority)
     {
@@ -524,7 +524,7 @@ Determines if the given event id (tagnum) is currently running or is queued to r
 This function looks like this:
 
 ```cpp
-int __thiscall FUNC_XiEvent_GetReqStatus(xievent_t *this, int32_t eventId)
+int __thiscall FUNC_XiEvent_GetReqStatus(xievent_t* this, int32_t eventId)
 {
     if (this->ReqStack[this->RunPos].TagNum == eventId)
         return 0;

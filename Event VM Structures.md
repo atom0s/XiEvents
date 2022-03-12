@@ -117,20 +117,17 @@ When the event VM ticks, it checks the `xievent_t::ReqStack` array to find which
 This is how the priority is determined:
 
 ```cpp
-    Priority = 255;
-    v4 = 0;
-    ReqStack = this->ReqStack;
-    do
+auto priority = 255;
+auto index = 0;
+do
+{
+    if (this->ReqStack[index].Priority <= priority)
     {
-      if ( (__int16)ReqStack->Priority <= Priority )
-      {
-        Priority = (__int16)ReqStack->Priority;
-        this->RunPos = v4;
-      }
-      ++v4;
-      ++ReqStack;
+        priority = this->ReqStack[index].Priority;
+        this->RunPos = index;
     }
-    while ( v4 < 16 );
+    ++index;
+} while (index < 16);
 ```
 
 ## `StackExecPointer`
