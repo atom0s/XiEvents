@@ -8,10 +8,10 @@ This file contains information on the various functions that are used with the e
 
 Prepares the event system. This function starts by ensuring the event data for the current zone is loaded this is done in steps to prevent deadlocks and has an internal task counter used to tell which state the system is currently in. The first steps are to load the two event DAT files (one holds the actual event data/blocks, the other holds the event messages/strings) which are done in two steps.
 
-  * If the event data DAT is not loaded, it's loaded and the function returns, which will continue on the next tick.
-  * If the event message DAT is not loaded, it's loaded and the function returns, which will continue on the next tick.
-  * Once both files are loaded, then `InitEvent2` is called.
-  * Once `InitEvent2` returns successfully, then all valid entities have `XiEvent::XiEventInit` called for their individual event instances, if present.
+* If the event data DAT is not loaded, it's loaded and the function returns, which will continue on the next tick.
+* If the event message DAT is not loaded, it's loaded and the function returns, which will continue on the next tick.
+* Once both files are loaded, then `InitEvent2` is called.
+* Once `InitEvent2` returns successfully, then all valid entities have `XiEvent::XiEventInit` called for their individual event instances, if present.
     * If no entities exist or have an event initialized, then the function returns while setting the event cancel flag to true.
 
 ## `InitEvent2`
@@ -148,20 +148,17 @@ When this function first starts, it ensures that an entity server id has been se
 Next, it determines the `ReqStack` that has the 'highest' `Priority`. The one found most important to run has it's index set into `RunPos`. This looks like:
 
 ```cpp
-    Priority = 255;
-    index = 0;
-    ReqStack = this->ReqStack;
-    do
+auto priority = 255;
+auto index = 0;
+do
+{
+    if (this->ReqStack[index].Priority <= priority)
     {
-      if ( (__int16)ReqStack->Priority <= Priority )
-      {
-        Priority = (__int16)ReqStack->Priority;
+        priority = this->ReqStack[index].Priority;
         this->RunPos = index;
-      }
-      ++index;
-      ++ReqStack;
     }
-    while ( index < 16 );
+    ++index;
+} while (index < 16);
 ```
 
 _`Priority` is handled in reverse. 255 is the default and considered the lowest priority._
@@ -195,6 +192,7 @@ void __thiscall FUNC_XiEvent_OpCode_0x0000(xievent_t* this)
     this->ReqStack[this->RunPos].WaitTime = -1.0;
     this->ReqStack[this->RunPos].WhoServerId = 0;
     this->ReqStack[this->RunPos].TagNum = 0;
+
     this->RetFlag = 1;
 }
 ```
