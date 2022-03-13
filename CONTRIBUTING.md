@@ -5,6 +5,7 @@
 3. [Legal](#legal)
 4. [Safe Reference Material](#safe-reference-material)
 5. [Getting Started](#getting-started)
+    - [Tooling Information](#tooling-information)
 6. [Issues and Pull Requests](#issues-and-pull-requests)
 7. [Naming Conventions](#naming-conventions)
     - [Naming Priority](#naming-priority)
@@ -71,6 +72,25 @@ _If you have any material you are unsure of being safe to reference, you can con
 Before you plan to submit any issues or pull requests, we do ask that you get familiar with the repository first and the various file formats/layouts being used. The information presented in this repository is generally kept organized in various specific manners, and we do ask that any pull requests or changes being submitted follow the same formats.
 
 If you feel a very large change should take place, then please open an issue for discussion as a proposal. 
+
+## Tooling Information
+
+If you are interested in reverse engineering or working with any of the information in this repository, then here is a list of tools we suggest making use of or getting familiar with:
+
+  * Cheat Engine (Debugger / Disassembler / Memory Editor) - [https://www.cheatengine.org/](https://www.cheatengine.org/)
+  * Ghidra (Debugger / Disassembler / Decompiler) - [https://ghidra-sre.org/](https://ghidra-sre.org/)
+  * IDA (Debugger / Disassembler / Decompiler) - [https://hex-rays.com/](https://hex-rays.com/)
+
+For editing the documentation found in this repository, we recommend the following:
+
+  * VSCode - [https://code.visualstudio.com/](https://code.visualstudio.com/)
+    * Extension: Instant Markdown
+
+For working with pseudo code, we recommend any modern C/C++ editor that supports `.clang-format` configurations for styling.
+
+  * Visual Studio 2022
+  * VSCode, Atom, Sublime Editor, Notepad++
+  * JetBrains Rider
 
 # Issues and Pull Requests
 
@@ -304,3 +324,5 @@ void FUNC_Derp(void) { FUNC_Herp(); }
 ### Switch Statements
 
 Along with the bracket rules, switch statements should always contain a `default` entry.
+
+# Tooling Information
