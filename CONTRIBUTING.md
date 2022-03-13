@@ -325,4 +325,6 @@ void FUNC_Derp(void) { FUNC_Herp(); }
 
 Along with the bracket rules, switch statements should always contain a `default` entry.
 
-# Tooling Information
+### Other Stylings
+
+If you are unsure of how to style something, please reference the existing material for ideas. Otherwise, feel free to open an issue to ask.
