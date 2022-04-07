@@ -58,10 +58,10 @@ Prepares the entities that are involved with the current event attempting to run
           * If true, then the client checks if the entity is within the current event playing.
             * If this is false, the function hard-exists in failure.
     * `if ( (entity->ServerId & 0xFF000000) == 0 )`
-      * If this is true, the client will call `XiActor::SetCastMagicID` function on the entity and set another value inside of its `WarpPointer` to `0x20202020`
+      * If this is true, the client will call `XiActor::SetCastMagicID` function on the entity and set another value inside of its `ActorPointer` to `0x20202020`
     * `if ( (v8->Render.Flags0 & 0x4000) != 0 || (v8->Render.Flags0 & 0x8000) != 0 )`
       * If this is true, further checks are skipped and go straight to the call to `XiAtelBuff::EventNew`.
-    * `if ( XiActor::IsLockedStatus(entity->WarpPointer) )`
+    * `if ( XiActor::IsLockedStatus(entity->ActorPointer) )`
       * If this is true, the function hard-exists in failure.
   * Once the above has been checked, then the entity is considered valid. The following then happens:
     * `XiAtelBuff::EventNew` is called for this entity.
@@ -98,7 +98,7 @@ The XiEvent object destructor. This cleans up the various allocations and other 
 
 This function is fairly straight forward in cleaning things up, but here's a quick rundown of what happens:
 
-  * The entity is obtained, if valid then it's event action is cancelled via: `XiAtelBuff::KillLastAction` 
+  * The entity is obtained, if valid then it's event action is cancelled via: `XiAtelBuff::KillLastAction`
   * The entity is tested for type `XiSkeletonActor::classXiSkeletonActor`
     * If matched, then the entity is told to stop moving its mouth via: `XiAtelBuff::StopMouth` and `XiSkeletonActor::DeleteResp`
     * The entities various flags and animation fields are reset from the event state.
@@ -143,7 +143,7 @@ The second initializer for the XiEvent object. This is used to finalize the init
 
 Sets up the `ReqStack` that will be executed on the current tick then runs `XiEvent::ExecProg` in a loop until `RetFlag` is set.
 
-When this function first starts, it ensures that an entity server id has been set. If not, then it returns 0. 
+When this function first starts, it ensures that an entity server id has been set. If not, then it returns 0.
 
 Next, it determines the `ReqStack` that has the 'highest' `Priority`. The one found most important to run has it's index set into `RunPos`. This looks like:
 
@@ -197,7 +197,7 @@ void __thiscall FUNC_XiEvent_OpCode_0x0000(xievent_t* this)
 }
 ```
 
-Opcode `0x0000` is used to stop/reset the current `ReqStack` object. Since this handler sets `RetFlag` then the loop processing `XiEvent::ExecProg` will break. When this happens, `ExecPointer` is then stored into `ReqStack[RunPos].StackExecPointer`. However, this also sets the `Priority` to 255, which means on next tick, this stack is not considered valid and will fail the check done in `XiEvent::EventIdle` for `Priority`. 
+Opcode `0x0000` is used to stop/reset the current `ReqStack` object. Since this handler sets `RetFlag` then the loop processing `XiEvent::ExecProg` will break. When this happens, `ExecPointer` is then stored into `ReqStack[RunPos].StackExecPointer`. However, this also sets the `Priority` to 255, which means on next tick, this stack is not considered valid and will fail the check done in `XiEvent::EventIdle` for `Priority`.
 
 ## `XiEvent::eventgetcode`
 
@@ -467,7 +467,7 @@ bool __thiscall FUNC_XiEvent_GetActorIndex(xievent_t* this, int32_t lookupValue,
     * These values are used to return the local players party members info (based on their index in the party, 0 is skipped for local player). (Party 0)
   * `0x7FFFFFC6`, `0x7FFFFFC7`, `0x7FFFFFC8`, `0x7FFFFFC9`, `0x7FFFFFCA`, `0x7FFFFFCB`
     * These are intentionally overflowed upward by `+0x44`, resulting in the values: 10, 11, 12, 13, 14, 15
-    * These values are used to return the local players alliance party members info. (Party 1)  
+    * These values are used to return the local players alliance party members info. (Party 1)
   * `0x7FFFFFCC`, `0x7FFFFFCD`, `0x7FFFFFCE`, `0x7FFFFFCF`, `0x7FFFFFD0`, `0x7FFFFFD1`
     * These are intentionally overflowed upward by `+0x48`, resulting in the values: 20, 21, 22, 23, 24, 25
     * These values are used to return the local players alliance party members info. (Party 2)
@@ -479,7 +479,7 @@ bool __thiscall FUNC_XiEvent_GetActorIndex(xievent_t* this, int32_t lookupValue,
   * The default handler tests if the value is a normal entity server id for NPCs. `if ((val & 0xFF000000) != 0)`
     * If true, the return values will be the value given as the server id and `val & 0x3FF` to get the target index.
     * If false, the return values default to the local event entity information. (`EntityServerId[1]` and `EntityTargetIndex[1]`)
-    
+
 When the return values are set (they are put back into the incoming parameters), the function then returns true or false based on if the entity is valid/exists, and if the server id matches what was determined.
 
 ## `XiEvent::GetReqLevel`
@@ -513,7 +513,7 @@ int __thiscall FUNC_XiEvent_GetReqLevel(xievent_t* this, int priority)
 
 **Pattern:** `33 C0 8B 54 24 04 66 8B 81 58 02 00 00 56 C1 E0 05 0F BE 44 08 3A 3B C2 75 ?? 33 C0 5E C2 04 00`
 
-Determines if the given event id (tagnum) is currently running or is queued to run in any `ReqStack` entries. 
+Determines if the given event id (tagnum) is currently running or is queued to run in any `ReqStack` entries.
 
   * Returns 0 if the current `ReqStack[RunPos].TagNum` equals the given event id.
   * Returns 1 if one of the non-currently running `ReqStack` objects contains the given event id.
