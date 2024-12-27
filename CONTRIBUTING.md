@@ -146,8 +146,6 @@ _Pointer namings are used for objects, globals, arrays, etc._
   * Globals that the game prefixes with `g_` should still be prefixed with `PTR_`. (ie. `g_xiFileManager` should be named `PTR_g_xiFileManager`)
   * Unknown pointers in pseudo code should be named `PTR_UnknownObject` or similar. _(Best to leave a comment explaining what it is/potentially is as well.)_
 
-In some cases, some official names are not really ideal. For example, one that I personally dislike is `ActerBuffPtr`. This is the entity map object that holds a pointer to all valid entities. Instead, the name `PTR_ActorBuffPtr` is used instead.
-
 _If you rename a pointer that has an official known name, please be sure to add a comment above the pointer stating what the official, unedited, name is._
 
 ### Type Names
