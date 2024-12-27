@@ -16,9 +16,9 @@
 
 # General
 
-Thank you for your interest in contributing to the XiEvents repository! 
+Thank you for your interest in contributing to the XiEvents repository!
 
-Before you begin submitting anything, we do ask that you take the time to review this document and make yourself aware of the various guidelines we ask all contributors to follow. Failing to follow the guidelines we have set in place will result in us asking you to change your pulls or have them flat out declined/closed. 
+Before you begin submitting anything, we do ask that you take the time to review this document and make yourself aware of the various guidelines we ask all contributors to follow. Failing to follow the guidelines we have set in place will result in us asking you to change your pulls or have them flat out declined/closed.
 
 Keeping the information on this repository clean, clear, and understandable is our goal.
 
@@ -35,12 +35,12 @@ This repository and its work is for educational purposes only.
 We (contributors) do not claim ownership of any copyright content related to, or associated with, Final Fantasy XI.
 
 ```
-(c) 2002-2022 SQUARE ENIX CO., LTD. All Rights Reserved. Title Design by Yoshitaka Amano. 
-FINAL FANTASY, TETRA MASTER and VANA'DIEL are registered trademarks of Square Enix Co., Ltd. SQUARE ENIX, 
+(c) 2002-2022 SQUARE ENIX CO., LTD. All Rights Reserved. Title Design by Yoshitaka Amano.
+FINAL FANTASY, TETRA MASTER and VANA'DIEL are registered trademarks of Square Enix Co., Ltd. SQUARE ENIX,
 PLAYONLINE and the PlayOnline logo are trademarks of Square Enix Co., Ltd.
 ```
 
-The reverse engineering done by this repository and its contributors is entirely 'clean room'. 
+The reverse engineering done by this repository and its contributors is entirely 'clean room'.
 
 We DO NOT have or use any leaked source code or other unpublished material. By contributing to this repository, you agree to the following:
 
@@ -71,7 +71,7 @@ _If you have any material you are unsure of being safe to reference, you can con
 
 Before you plan to submit any issues or pull requests, we do ask that you get familiar with the repository first and the various file formats/layouts being used. The information presented in this repository is generally kept organized in various specific manners, and we do ask that any pull requests or changes being submitted follow the same formats.
 
-If you feel a very large change should take place, then please open an issue for discussion as a proposal. 
+If you feel a very large change should take place, then please open an issue for discussion as a proposal.
 
 ## Tooling Information
 
@@ -103,7 +103,7 @@ If you are looking to submit a new issue or pull request, we ask that you follow
 3. Be sure to use the included templates, if one exists.
     * _When submitting issues and pulls, there may be an existing template you can use. Please be sure to use them and properly fill them out when submitting anything._
 
-When submitting a new issue or pull request, please be sure to include as much detail as possible. Please do not be vague or non-responsive if you are asked to give more details, otherwise your submissions will be rejected. 
+When submitting a new issue or pull request, please be sure to include as much detail as possible. Please do not be vague or non-responsive if you are asked to give more details, otherwise your submissions will be rejected.
 
 If you are submitting a change/fix, please explain why. If you are submitting new information, new reversed data, or similar, please show your work, and be informative. Please do not guess at what things are/do. If you are unsure of parts of what you have reversed, please be clear about it. It is not helpful for the project to have guessed namings or similar that are potentially wrong and misleading. It is better to mark the data as unknown and needs to be further researched instead.
 
@@ -146,7 +146,7 @@ _Pointer namings are used for objects, globals, arrays, etc._
   * Globals that the game prefixes with `g_` should still be prefixed with `PTR_`. (ie. `g_xiFileManager` should be named `PTR_g_xiFileManager`)
   * Unknown pointers in pseudo code should be named `PTR_UnknownObject` or similar. _(Best to leave a comment explaining what it is/potentially is as well.)_
 
-In some cases, some official names are not really ideal. For example, one that I personally dislike is `ActerBuffPtr`. This is the entity map object that holds a pointer to all valid entities. Instead, the name `PTR_EntityMap` is used instead.
+In some cases, some official names are not really ideal. For example, one that I personally dislike is `ActerBuffPtr`. This is the entity map object that holds a pointer to all valid entities. Instead, the name `PTR_ActorBuffPtr` is used instead.
 
 _If you rename a pointer that has an official known name, please be sure to add a comment above the pointer stating what the official, unedited, name is._
 
@@ -269,7 +269,7 @@ if (FUNC_SomeCall()) {
 Brackets used for switch casing should be aligned to the case label. `break`, `continue` and `return` statements should be within the brackets. Brackets should generally always be present.
 
 ```cpp
-// Correct ✔️ 
+// Correct ✔️
 switch (x)
 {
     case 0:
@@ -310,7 +310,7 @@ switch (x)
 Short / small functions should always be written out. They should not be inlined into a single line.
 
 ```cpp
-// Correct ✔️ 
+// Correct ✔️
 void FUNC_Derp(void)
 {
     FUNC_Herp();
